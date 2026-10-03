@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contractor Labor Burden Calculator</title>
-  <meta name="description" content="Free contractor labor burden calculator. Estimate true employee cost per productive hour, labor burden percentage, job labor cost and a target billable labor rate.">
+  <meta name="description" content="Free contractor labor burden calculator with Washington overtime. Estimate true employee cost per productive hour, labor burden, job labor cost and target billable rates.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://contractorjobcalculator.com/labor-burden.html">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4738150335550966" crossorigin="anonymous"></script>
@@ -21,6 +21,7 @@
     .fieldhelp{font-size:.78rem;color:var(--muted);margin-top:5px}
     .ad-slot{min-height:82px;border:1px dashed #b8c2c7;border-radius:14px;background:#fbfcfc;display:flex;align-items:center;justify-content:center;color:#849199;font-size:.85rem;margin:8px 0 24px}
     .info{padding:14px 16px;border:1px solid #cfe3d9;border-radius:12px;background:#f1f7f5;margin:15px 0}
+    .otinfo{padding:14px 16px;border:1px solid #ead6a8;border-radius:12px;background:#fff8e9;margin:15px 0}
     .links a{color:var(--brand2);font-weight:750}
     @media(max-width:650px){.resultgrid{grid-template-columns:1fr}.wide{grid-column:auto}}
   </style>
@@ -35,7 +36,7 @@
   <section class="hero">
     <div class="eyebrow">Contractor financial utility</div>
     <h1>Your employee costs more than the hourly wage.</h1>
-    <p class="lead">Estimate the true employer cost of labor after payroll burden, Washington workers’ compensation, unemployment, benefits and nonbillable paid time—then convert it into a job labor cost and target billable rate.</p>
+    <p class="lead">Estimate the true employer cost of labor after payroll burden, Washington workers’ compensation, unemployment, benefits, nonbillable paid time and job-specific overtime—then convert it into job labor cost and target billable rates.</p>
   </section>
 
   <div class="ad-slot">AdSense placement — calculator content</div>
@@ -93,8 +94,18 @@
         <input id="otherPct" type="number" min="0" step="0.01" value="0">
       </div>
       <div class="field">
-        <label for="jobHours">Labor hours on this job</label>
-        <input id="jobHours" type="number" min="0" step="0.1" value="40">
+        <label for="regularJobHours">Regular labor hours on this job</label>
+        <input id="regularJobHours" type="number" min="0" step="0.1" value="40">
+      </div>
+      <div class="field">
+        <label for="overtimeHours">Overtime hours on this job</label>
+        <input id="overtimeHours" type="number" min="0" step="0.1" value="0">
+        <div class="fieldhelp">For a typical nonexempt Washington employee, enter hours worked over 40 in the workweek. Public works and other situations can have additional rules.</div>
+      </div>
+      <div class="field">
+        <label for="overtimeMultiplier">Overtime wage multiplier</label>
+        <input id="overtimeMultiplier" type="number" min="1" step="0.05" value="1.5">
+        <div class="fieldhelp">Washington’s standard overtime minimum is 1.5× the regular rate for eligible employees after 40 hours in a workweek.</div>
       </div>
       <div class="field">
         <label for="targetMargin">Target gross margin on labor (%)</label>
@@ -103,6 +114,7 @@
     </div>
 
     <div class="info"><strong>Important:</strong> Use employer-paid costs only. Do not add employee deductions as employer expense unless your company actually pays that portion.</div>
+    <div class="otinfo"><strong>Overtime planning:</strong> The calculator applies the overtime multiplier to the employee’s wage and wage-based employer burden for the entered overtime hours. Workers’ comp and hourly benefit costs are added at their normal hourly amount. Fixed annual employee costs are not multiplied by 1.5.</div>
 
     <div class="resultgrid">
       <div class="resultbox"><span>Annual base wages</span><strong id="annualWages">—</strong></div>
@@ -110,25 +122,35 @@
       <div class="resultbox"><span>Labor burden percentage</span><strong id="burdenPct">—</strong></div>
       <div class="resultbox"><span>Total annual employer labor cost</span><strong id="annualCost">—</strong></div>
       <div class="resultbox"><span>Loaded cost per paid hour</span><strong id="paidHourCost">—</strong></div>
-      <div class="resultbox primary"><span>True cost per productive hour</span><strong id="productiveHourCost">—</strong></div>
-      <div class="resultbox"><span>Cost of 8 productive hours</span><strong id="dayCost">—</strong></div>
-      <div class="resultbox"><span>Cost of 40 productive hours</span><strong id="weekCost">—</strong></div>
-      <div class="resultbox primary"><span>Estimated labor cost for this job</span><strong id="jobCost">—</strong></div>
-      <div class="resultbox primary"><span>Suggested billable labor rate at target margin</span><strong id="billableRate">—</strong></div>
+      <div class="resultbox primary"><span>True cost per productive regular hour</span><strong id="productiveHourCost">—</strong></div>
+      <div class="resultbox"><span>Cost of 8 productive regular hours</span><strong id="dayCost">—</strong></div>
+      <div class="resultbox"><span>Cost of 40 productive regular hours</span><strong id="weekCost">—</strong></div>
+      <div class="resultbox"><span>Estimated loaded overtime cost per hour</span><strong id="overtimeHourCost">—</strong></div>
+      <div class="resultbox"><span>Overtime labor cost on this job</span><strong id="overtimeJobCost">—</strong></div>
+      <div class="resultbox primary wide"><span>Estimated total labor cost for this job</span><strong id="jobCost">—</strong></div>
+      <div class="resultbox primary"><span>Suggested billable regular labor rate</span><strong id="billableRate">—</strong></div>
+      <div class="resultbox primary"><span>Suggested billable overtime labor rate</span><strong id="overtimeBillableRate">—</strong></div>
     </div>
-    <p class="micro">“True cost per productive hour” spreads the employee’s annual employer cost across the hours you expect to be productive/billable. It is a management estimate, not a payroll filing calculation.</p>
+    <p class="micro">“True cost per productive regular hour” spreads the employee’s annual employer cost across the hours you expect to be productive/billable. Job overtime is then added separately so the calculator does not simply multiply every fixed annual cost by 1.5.</p>
   </section>
 
   <div class="ad-slot">AdSense placement — after calculator results</div>
 
   <section class="card">
+    <h2>How Washington overtime is handled</h2>
+    <p>For most overtime-eligible Washington employees, overtime is at least 1.5 times the regular rate for hours worked over 40 in a seven-day workweek. The regular rate may include more than the base hourly wage when an employee receives certain additional compensation.</p>
+    <p>Public works can have additional overtime requirements, including overtime after 8 hours in a day in some circumstances. Use the editable multiplier and overtime-hours fields for planning, then verify the project’s actual wage and overtime requirements.</p>
+  </section>
+
+  <section class="card">
     <h2>Why productive hours matter</h2>
     <p>An employee can be paid for 2,080 hours in a year without producing 2,080 billable hours. Paid holidays, vacation, sick time, meetings, training, shop time, travel and other nonbillable activity reduce the number of hours available to recover the employee’s cost.</p>
-    <p>That is why this calculator shows both <strong>loaded cost per paid hour</strong> and <strong>true cost per productive hour</strong>.</p>
+    <p>That is why this calculator shows both <strong>loaded cost per paid hour</strong> and <strong>true cost per productive regular hour</strong>.</p>
   </section>
 
   <section class="card links">
     <h2>Washington rate references</h2>
+    <p><a href="https://www.lni.wa.gov/workers-rights/wages/overtime/" target="_blank" rel="noopener">Washington L&I overtime rules ↗</a></p>
     <p><a href="https://www.lni.wa.gov/insurance/rates-risk-classes/rates-for-workers-compensation/" target="_blank" rel="noopener">Washington L&I workers’ compensation rates ↗</a></p>
     <p><a href="https://esd.wa.gov/employer-requirements/unemployment-taxes/how-we-determine-tax-rates" target="_blank" rel="noopener">Washington ESD unemployment tax rates ↗</a></p>
     <p class="micro">Workers’ compensation and unemployment costs vary by employer, classification, experience and other factors. Enter your actual employer rates rather than relying on a generic percentage.</p>
@@ -136,11 +158,11 @@
 
   <section class="card">
     <h2>Use the labor number in your other contractor calculators</h2>
-    <p>The <strong>Estimated labor cost for this job</strong> can be carried into the Direct Labor or Direct Job Costs field in the other calculators.</p>
+    <p>The <strong>Estimated total labor cost for this job</strong> can be carried into the Direct Labor or Direct Job Costs field in the other calculators.</p>
     <p><a class="button" href="/">Job Tax & Profit Calculator</a> &nbsp; <a class="button" href="overhead-break-even.html">Overhead & Break-Even Calculator</a></p>
   </section>
 
-  <section class="warning"><strong>Planning estimate:</strong> payroll taxes and benefit rules can have wage bases, caps, eligibility rules and other details that a simple calculator cannot model. Verify payroll and insurance figures with your payroll provider, accountant, L&I and ESD as appropriate.</section>
+  <section class="warning"><strong>Planning estimate:</strong> overtime, payroll taxes and benefit rules can have wage bases, caps, exemptions, prevailing-wage rules and other details that a simple calculator cannot model. Verify payroll and project requirements with your payroll provider, accountant, Washington L&I and ESD as appropriate.</section>
 
   <footer><div class="footerlinks"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></div>Calculator results are estimates for planning and education, not payroll, accounting, tax or legal advice.</footer>
 </div>
@@ -163,11 +185,14 @@
     const fixedBenefits=val('fixedBenefits');
     const productiveHours=val('productiveHours');
     const otherPct=val('otherPct')/100;
-    const jobHours=val('jobHours');
+    const regularJobHours=val('regularJobHours');
+    const overtimeHours=val('overtimeHours');
+    const overtimeMultiplier=Math.max(1,val('overtimeMultiplier'));
     const targetMargin=val('targetMargin')/100;
 
     const annualWages=wage*paidHours;
-    const wageBasedBurden=annualWages*(payrollTax+unemployment+otherPct);
+    const wageBurdenRate=payrollTax+unemployment+otherPct;
+    const wageBasedBurden=annualWages*wageBurdenRate;
     const workersComp=wcHourly*reportedHours;
     const hourlyBenefits=benefitHourly*paidHours;
     const totalBurden=wageBasedBurden+workersComp+hourlyBenefits+fixedBenefits;
@@ -175,8 +200,16 @@
     const burdenPercent=annualWages>0?(totalBurden/annualWages)*100:0;
     const loadedPaid=paidHours>0?totalCost/paidHours:0;
     const productiveCost=productiveHours>0?totalCost/productiveHours:0;
-    const jobCost=productiveCost*jobHours;
+
+    const overtimeWage=wage*overtimeMultiplier;
+    const overtimeWageBurden=overtimeWage*wageBurdenRate;
+    const overtimeLoadedCost=overtimeWage+overtimeWageBurden+wcHourly+benefitHourly;
+    const regularJobCost=productiveCost*regularJobHours;
+    const overtimeJobCost=overtimeLoadedCost*overtimeHours;
+    const jobCost=regularJobCost+overtimeJobCost;
+
     const billable=targetMargin<1?productiveCost/(1-targetMargin):0;
+    const overtimeBillable=targetMargin<1?overtimeLoadedCost/(1-targetMargin):0;
 
     $('annualWages').textContent=money(annualWages);
     $('burdenDollars').textContent=money(totalBurden);
@@ -186,11 +219,14 @@
     $('productiveHourCost').textContent=money(productiveCost);
     $('dayCost').textContent=money(productiveCost*8);
     $('weekCost').textContent=money(productiveCost*40);
+    $('overtimeHourCost').textContent=money(overtimeLoadedCost)+'/hr';
+    $('overtimeJobCost').textContent=money(overtimeJobCost);
     $('jobCost').textContent=money(jobCost);
     $('billableRate').textContent=targetMargin<1?money(billable)+'/hr':'Target margin must be below 100%';
+    $('overtimeBillableRate').textContent=targetMargin<1?money(overtimeBillable)+'/hr':'Target margin must be below 100%';
   }
 
-  ['wage','paidHours','payrollTax','unemployment','wcHourly','reportedHours','benefitHourly','fixedBenefits','productiveHours','otherPct','jobHours','targetMargin'].forEach(id => $(id).addEventListener('input', calculate));
+  ['wage','paidHours','payrollTax','unemployment','wcHourly','reportedHours','benefitHourly','fixedBenefits','productiveHours','otherPct','regularJobHours','overtimeHours','overtimeMultiplier','targetMargin'].forEach(id => $(id).addEventListener('input', calculate));
   calculate();
 })();
 </script>
