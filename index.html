@@ -6,312 +6,66 @@
   <title>Washington Contractor Job Tax & Profit Calculator</title>
   <meta name="description" content="Estimate Washington contractor sales tax, B&O tax, gross profit and job margin before you quote the job.">
   <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://contractorjobcalculator.com/">
   <style>
-    :root{
-      --bg:#f5f7f8;
-      --card:#ffffff;
-      --ink:#16212a;
-      --muted:#65727c;
-      --line:#dfe5e8;
-      --brand:#153e52;
-      --brand2:#276b7c;
-      --good:#1f6d43;
-      --warn:#8b5d11;
-      --shadow:0 14px 40px rgba(20,45,60,.10);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:linear-gradient(180deg,#eef4f6 0,#f7f8f8 34%,#fff 100%);
-      color:var(--ink);
-      line-height:1.5;
-    }
-    .wrap{max-width:1100px;margin:0 auto;padding:22px}
-    header{
-      padding:50px 0 28px;
-      display:grid;
-      grid-template-columns:1.4fr .6fr;
-      gap:28px;
-      align-items:end;
-    }
-    .eyebrow{font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand2);font-size:.78rem}
-    h1{font-size:clamp(2rem,5vw,3.9rem);line-height:1.02;margin:.3rem 0 1rem;letter-spacing:-.04em}
-    .lead{font-size:1.12rem;color:var(--muted);max-width:760px}
-    .powered{font-size:.88rem;color:var(--muted);text-align:right}
-    .powered a{color:var(--brand);font-weight:800;text-decoration:none}
-    .ad{
-      min-height:82px;border:1px dashed #b8c2c7;border-radius:14px;background:#fbfcfc;
-      display:flex;align-items:center;justify-content:center;color:#849199;font-size:.85rem;
-      margin:8px 0 24px;
-    }
-    .grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:start}
-    .card{
-      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-      box-shadow:var(--shadow);padding:26px;
-    }
-    h2{margin:0 0 6px;font-size:1.35rem}
-    h3{margin:0 0 10px}
-    .sub{color:var(--muted);font-size:.92rem;margin:0 0 22px}
-    label{display:block;font-weight:750;font-size:.9rem;margin:0 0 7px}
-    input,select{
-      width:100%;border:1px solid #cfd8dc;border-radius:11px;padding:13px 12px;
-      font:inherit;background:#fff;color:var(--ink);outline:none;
-    }
-    input:focus,select:focus{border-color:var(--brand2);box-shadow:0 0 0 3px rgba(39,107,124,.12)}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
-    .full{margin-bottom:16px}
-    .help{font-size:.78rem;color:var(--muted);margin-top:5px}
-    .taxlookup{
-      display:inline-flex;align-items:center;gap:7px;margin-top:7px;
-      font-size:.82rem;font-weight:800;color:var(--brand2);text-decoration:none
-    }
-    button{
-      width:100%;border:0;border-radius:12px;background:var(--brand);color:#fff;
-      padding:15px 18px;font-weight:850;font-size:1rem;cursor:pointer;margin-top:4px;
-    }
-    button:hover{background:#0f3445}
-    .result-card{position:sticky;top:18px}
-    .empty{padding:34px 10px;color:var(--muted);text-align:center}
-    .results{display:none}
-    .metric{
-      display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid var(--line)
-    }
-    .metric span:first-child{color:var(--muted)}
-    .metric strong{font-variant-numeric:tabular-nums}
-    .heroMetric{
-      border-radius:15px;background:#f1f7f5;padding:18px;margin:18px 0;
-      display:flex;justify-content:space-between;align-items:center;gap:18px
-    }
-    .heroMetric strong{font-size:1.6rem;color:var(--good)}
-    .tag{
-      display:inline-block;border-radius:999px;padding:6px 10px;background:#eef4f6;
-      color:var(--brand);font-weight:850;font-size:.78rem;margin-top:8px
-    }
-    .note{
-      background:#fff8e9;border:1px solid #ead6a8;color:#594316;border-radius:12px;
-      padding:13px 14px;font-size:.82rem;margin-top:15px
-    }
-    .cta{
-      margin:28px 0 0;border-radius:16px;padding:20px;background:var(--brand);color:#fff
-    }
-    .cta p{opacity:.9;margin:.4rem 0 1rem}
-    .cta a{
-      display:inline-block;background:#fff;color:var(--brand);font-weight:900;
-      padding:11px 15px;border-radius:10px;text-decoration:none
-    }
-    .content{margin-top:30px}
-    .content p,.content li{color:#4f5e67}
-    .content a{color:var(--brand2)}
-    footer{color:var(--muted);font-size:.8rem;padding:32px 0 50px}
-    .hidden{display:none!important}
-    @media(max-width:820px){
-      header,.grid{grid-template-columns:1fr}
-      .powered{text-align:left}
-      .result-card{position:static}
-    }
-    @media(max-width:540px){.row{grid-template-columns:1fr}}
+    :root{--bg:#f5f7f8;--card:#fff;--ink:#16212a;--muted:#65727c;--line:#dfe5e8;--brand:#153e52;--brand2:#276b7c;--good:#1f6d43;--shadow:0 14px 40px rgba(20,45,60,.10);--radius:18px}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#eef4f6 0,#f7f8f8 34%,#fff 100%);color:var(--ink);line-height:1.5}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 0 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}.sitebrand{font-weight:900;color:var(--brand);text-decoration:none}.nav{display:flex;gap:13px;flex-wrap:wrap}.nav a{color:var(--brand2);text-decoration:none;font-weight:800;font-size:.88rem}
+    header{padding:46px 0 28px;display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:end}.eyebrow{font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand2);font-size:.78rem}h1{font-size:clamp(2rem,5vw,3.9rem);line-height:1.02;margin:.3rem 0 1rem;letter-spacing:-.04em}.lead{font-size:1.12rem;color:var(--muted);max-width:760px}.powered{font-size:.88rem;color:var(--muted);text-align:right}.powered a{color:var(--brand);font-weight:800;text-decoration:none}
+    .ad{min-height:82px;border:1px dashed #b8c2c7;border-radius:14px;background:#fbfcfc;display:flex;align-items:center;justify-content:center;color:#849199;font-size:.85rem;margin:8px 0 24px}.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:start}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}h2{margin:0 0 6px;font-size:1.35rem}.sub{color:var(--muted);font-size:.92rem;margin:0 0 22px}label{display:block;font-weight:750;font-size:.9rem;margin:0 0 7px}input,select{width:100%;border:1px solid #cfd8dc;border-radius:11px;padding:13px 12px;font:inherit;background:#fff;color:var(--ink);outline:none}input:focus,select:focus{border-color:var(--brand2);box-shadow:0 0 0 3px rgba(39,107,124,.12)}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}.help{font-size:.78rem;color:var(--muted);margin-top:5px}.taxlookup{display:inline-flex;align-items:center;gap:7px;margin-top:7px;font-size:.82rem;font-weight:800;color:var(--brand2);text-decoration:none}button{width:100%;border:0;border-radius:12px;background:var(--brand);color:#fff;padding:15px 18px;font-weight:850;font-size:1rem;cursor:pointer;margin-top:4px}button:hover{background:#0f3445}.result-card{position:sticky;top:18px}.empty{padding:34px 10px;color:var(--muted);text-align:center}.results{display:none}.metric{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid var(--line)}.metric span:first-child{color:var(--muted)}.metric strong{font-variant-numeric:tabular-nums}.heroMetric{border-radius:15px;background:#f1f7f5;padding:18px;margin:18px 0;display:flex;justify-content:space-between;align-items:center;gap:18px}.heroMetric strong{font-size:1.6rem;color:var(--good)}.tag{display:inline-block;border-radius:999px;padding:6px 10px;background:#eef4f6;color:var(--brand);font-weight:850;font-size:.78rem;margin-top:8px}.note{background:#fff8e9;border:1px solid #ead6a8;color:#594316;border-radius:12px;padding:13px 14px;font-size:.82rem;margin-top:15px}.cta{margin:28px 0 0;border-radius:16px;padding:20px;background:var(--brand);color:#fff}.cta p{opacity:.9;margin:.4rem 0 1rem}.cta a{display:inline-block;background:#fff;color:var(--brand);font-weight:900;padding:11px 15px;border-radius:10px;text-decoration:none}.content{margin-top:30px}.content p,.content li{color:#4f5e67}.content a{color:var(--brand2)}.resources{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}.resource{border:1px solid var(--line);border-radius:13px;padding:16px;text-decoration:none;color:var(--ink);background:#fff}.resource strong{display:block;margin-bottom:4px}.resource span{color:var(--muted);font-size:.88rem}footer{color:var(--muted);font-size:.8rem;padding:32px 0 50px}.footerlinks{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:10px}.footerlinks a{color:var(--brand2)}.hidden{display:none!important}
+    @media(max-width:820px){header,.grid{grid-template-columns:1fr}.powered{text-align:left}.result-card{position:static}.resources{grid-template-columns:1fr}}@media(max-width:540px){.row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div>
-      <div class="eyebrow">Free Washington contractor utility</div>
-      <h1>Know what the job really makes before you quote it.</h1>
-      <p class="lead">Estimate customer sales tax, Washington B&amp;O tax, gross job profit and gross margin in one place.</p>
-    </div>
-    <div class="powered">Powered by <a href="https://contractorleadexchange.com/" target="_blank" rel="noopener">Contractor Lead Exchange</a></div>
-  </header>
+  <div class="topbar"><a class="sitebrand" href="/">Contractor Job Calculator</a><nav class="nav"><a href="washington-contractor-sales-tax.html">Sales Tax</a><a href="washington-bo-tax.html">B&O Tax</a><a href="reseller-permit.html">Reseller Permits</a><a href="markup-vs-margin.html">Markup vs. Margin</a></nav></div>
+  <header><div><div class="eyebrow">Free Washington contractor utility</div><h1>Know what the job really makes before you quote it.</h1><p class="lead">Estimate customer sales tax, Washington B&amp;O tax, gross job profit and gross margin in one place.</p></div><div class="powered">Powered by <a href="https://contractorleadexchange.com/" target="_blank" rel="noopener">Contractor Lead Exchange</a></div></header>
 
   <div class="ad">AdSense placement — top content ad (add publisher code after approval)</div>
 
   <main class="grid">
     <section class="card">
-      <h2>Washington Contractor Job Calculator</h2>
-      <p class="sub">Enter the contract amount before sales tax. Use the official WA DOR rate for the job location.</p>
-
-      <div class="row">
-        <div>
-          <label for="role">Contractor type</label>
-          <select id="role">
-            <option value="prime">Prime / general contractor</option>
-            <option value="sub">Subcontractor</option>
-          </select>
-        </div>
-        <div id="permitWrap" class="hidden">
-          <label for="permit">Valid reseller permit from prime?</label>
-          <select id="permit">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label for="contract">Contract amount</label>
-          <input id="contract" inputmode="decimal" type="number" min="0" step="0.01" placeholder="18500">
-        </div>
-        <div>
-          <label for="taxRate">WA DOR total tax rate</label>
-          <input id="taxRate" inputmode="decimal" type="number" min="0" max="20" step="0.001" placeholder="0.089">
-          <div class="help">Enter the rate exactly as WA DOR shows it. Example: <strong>0.089 = 8.9%</strong>. The calculator also accepts 8.9.</div>
-          <a class="taxlookup" href="https://dor.wa.gov/taxes-rates/retail-sales-tax/sales-and-use-tax-tools" target="_blank" rel="noopener">Verify rate with WA DOR ↗</a>
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label for="materials">Materials</label>
-          <input id="materials" inputmode="decimal" type="number" min="0" step="0.01" placeholder="6300">
-        </div>
-        <div>
-          <label for="labor">Direct labor</label>
-          <input id="labor" inputmode="decimal" type="number" min="0" step="0.01" placeholder="4200">
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label for="subs">Subcontractor costs</label>
-          <input id="subs" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0">
-        </div>
-        <div>
-          <label for="other">Other direct job costs</label>
-          <input id="other" inputmode="decimal" type="number" min="0" step="0.01" placeholder="1000">
-        </div>
-      </div>
-
-      <button id="calc">Calculate job</button>
-      <div class="help">This tool estimates job economics only. It does not calculate overhead, federal income tax, payroll taxes, insurance, or every Washington tax classification.</div>
+      <h2>Washington Contractor Job Calculator</h2><p class="sub">Enter the contract amount before sales tax. Use the official WA DOR rate for the job location.</p>
+      <div class="row"><div><label for="role">Contractor type</label><select id="role"><option value="prime">Prime / general contractor</option><option value="sub">Subcontractor</option></select></div><div id="permitWrap" class="hidden"><label for="permit">Valid reseller permit from prime?</label><select id="permit"><option value="yes">Yes</option><option value="no">No</option></select></div></div>
+      <div class="row"><div><label for="contract">Contract amount</label><input id="contract" inputmode="decimal" type="number" min="0" step="0.01" placeholder="18500"></div><div><label for="taxRate">WA DOR total tax rate</label><input id="taxRate" inputmode="decimal" type="number" min="0" max="20" step="0.001" placeholder="0.089"><div class="help">Enter the rate exactly as WA DOR shows it. Example: <strong>0.089 = 8.9%</strong>. The calculator also accepts 8.9.</div><a class="taxlookup" href="https://dor.wa.gov/taxes-rates/retail-sales-tax/sales-and-use-tax-tools" target="_blank" rel="noopener">Verify rate with WA DOR ↗</a></div></div>
+      <div class="row"><div><label for="materials">Materials</label><input id="materials" inputmode="decimal" type="number" min="0" step="0.01" placeholder="6300"></div><div><label for="labor">Direct labor</label><input id="labor" inputmode="decimal" type="number" min="0" step="0.01" placeholder="4200"></div></div>
+      <div class="row"><div><label for="subs">Subcontractor costs</label><input id="subs" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0"></div><div><label for="other">Other direct job costs</label><input id="other" inputmode="decimal" type="number" min="0" step="0.01" placeholder="1000"></div></div>
+      <button id="calc">Calculate job</button><div class="help">This tool estimates job economics only. It does not calculate overhead, federal income tax, payroll taxes, insurance, or every Washington tax classification.</div>
     </section>
 
-    <aside class="card result-card">
-      <div id="empty" class="empty">
-        Enter the job information and select <strong>Calculate job</strong>.
-      </div>
-      <div id="results" class="results">
-        <h2>Estimated job result</h2>
-        <div id="classification" class="tag"></div>
-
-        <div class="metric"><span>Contract amount</span><strong id="rContract">$0</strong></div>
-        <div class="metric"><span>Sales tax rate used</span><strong id="rRate">0%</strong></div>
-        <div class="metric"><span>Sales tax collected</span><strong id="rTax">$0</strong></div>
-        <div class="metric"><span>Customer total</span><strong id="rCustomer">$0</strong></div>
-        <div class="metric"><span>Direct job costs</span><strong id="rCosts">$0</strong></div>
-        <div class="metric"><span>Gross job profit</span><strong id="rGross">$0</strong></div>
-        <div class="metric"><span>Gross margin</span><strong id="rMargin">0%</strong></div>
-        <div class="metric"><span>Estimated WA B&amp;O</span><strong id="rBO">$0</strong></div>
-
-        <div class="heroMetric">
-          <div><div style="color:#65727c;font-size:.82rem">Gross job profit after estimated B&amp;O</div><strong id="rAfter">$0</strong></div>
-          <div style="text-align:right"><div style="color:#65727c;font-size:.82rem">Margin after B&amp;O</div><b id="rAfterMargin">0%</b></div>
-        </div>
-
-        <div id="resultNote" class="note"></div>
-
-        <div class="cta">
-          <strong>Could your business be leaking revenue elsewhere?</strong>
-          <p>Use your job result as a starting point, then look for avoidable revenue loss across estimating, follow-up and operations.</p>
-          <a href="https://contractorleadexchange.com/contractor-revenue-leak-audit" target="_blank" rel="noopener">Explore the CLX Revenue Leak Audit</a>
-        </div>
-      </div>
-    </aside>
+    <aside class="card result-card"><div id="empty" class="empty">Enter the job information and select <strong>Calculate job</strong>.</div><div id="results" class="results"><h2>Estimated job result</h2><div id="classification" class="tag"></div><div class="metric"><span>Contract amount</span><strong id="rContract">$0</strong></div><div class="metric"><span>Sales tax rate used</span><strong id="rRate">0%</strong></div><div class="metric"><span>Sales tax collected</span><strong id="rTax">$0</strong></div><div class="metric"><span>Customer total</span><strong id="rCustomer">$0</strong></div><div class="metric"><span>Direct job costs</span><strong id="rCosts">$0</strong></div><div class="metric"><span>Gross job profit</span><strong id="rGross">$0</strong></div><div class="metric"><span>Gross margin</span><strong id="rMargin">0%</strong></div><div class="metric"><span>Estimated WA B&amp;O</span><strong id="rBO">$0</strong></div><div class="heroMetric"><div><div style="color:#65727c;font-size:.82rem">Gross job profit after estimated B&amp;O</div><strong id="rAfter">$0</strong></div><div style="text-align:right"><div style="color:#65727c;font-size:.82rem">Margin after B&amp;O</div><b id="rAfterMargin">0%</b></div></div><div id="resultNote" class="note"></div><div class="cta"><strong>Could your business be leaking revenue elsewhere?</strong><p>Use your job result as a starting point, then look for avoidable revenue loss across estimating, follow-up and operations.</p><a href="https://contractorleadexchange.com/contractor-revenue-leak-audit" target="_blank" rel="noopener">Explore the CLX Revenue Leak Audit</a></div></div></aside>
   </main>
 
   <div class="ad" style="margin-top:26px">AdSense placement — after calculator/result</div>
 
-  <section class="card content">
-    <h2>How this calculator handles Washington contractor tax</h2>
-    <p><strong>Prime/custom construction:</strong> the calculator treats the contract as retail construction, estimates retail sales tax on the contract amount, and uses the Washington retailing B&amp;O rate of 0.471%.</p>
-    <p><strong>Subcontractor with a valid reseller permit:</strong> the calculator estimates no retail sales tax collected from the prime contractor and uses the wholesaling B&amp;O rate of 0.484%.</p>
-    <p><strong>Subcontractor without a valid reseller permit:</strong> the calculator treats the transaction as retail for this simplified estimate, applies the entered sales-tax rate, and uses retailing B&amp;O.</p>
-    <p>Actual tax treatment can vary with the project, customer, exemptions, deductions and construction classification. Verify tax treatment with the <a href="https://dor.wa.gov/education/industry-guides/construction/construction-tax-matrix" target="_blank" rel="noopener">Washington Department of Revenue construction tax matrix</a> or a qualified tax professional.</p>
-  </section>
+  <section class="card content"><h2>How this calculator handles Washington contractor tax</h2><p><strong>Prime/custom construction:</strong> the calculator treats the contract as retail construction, estimates retail sales tax on the contract amount, and uses the Washington retailing B&amp;O rate of 0.471%.</p><p><strong>Subcontractor with a valid reseller permit:</strong> the calculator estimates no retail sales tax collected from the prime contractor and uses the wholesaling B&amp;O rate of 0.484%.</p><p><strong>Subcontractor without a valid reseller permit:</strong> the calculator treats the transaction as retail for this simplified estimate, applies the entered sales-tax rate, and uses retailing B&amp;O.</p><p>Actual tax treatment can vary with the project, customer, exemptions, deductions and construction classification. Verify tax treatment with the <a href="https://dor.wa.gov/education/industry-guides/construction/construction-tax-matrix" target="_blank" rel="noopener">Washington Department of Revenue construction tax matrix</a> or a qualified tax professional.</p></section>
+
+  <section class="card content"><h2>Contractor tax & pricing resources</h2><div class="resources"><a class="resource" href="washington-contractor-sales-tax.html"><strong>Washington Contractor Sales Tax</strong><span>Job-site sourcing, taxable contract price and rate lookup.</span></a><a class="resource" href="washington-bo-tax.html"><strong>Washington B&O Tax</strong><span>Retailing vs. wholesaling classifications and rates.</span></a><a class="resource" href="prime-vs-subcontractor.html"><strong>Prime vs. Subcontractor</strong><span>How the tax treatment changes based on who hires whom.</span></a><a class="resource" href="reseller-permit.html"><strong>Reseller Permits</strong><span>Qualifying purchases, documentation and contractor rules.</span></a><a class="resource" href="markup-vs-margin.html"><strong>Markup vs. Margin Calculator</strong><span>Convert markup to gross margin or calculate a target selling price.</span></a><a class="resource" href="about.html"><strong>About the Calculator</strong><span>Purpose, limitations and editorial approach.</span></a></div></section>
 
   <div class="ad" style="margin-top:26px">AdSense placement — informational content</div>
 
-  <footer>
-    <strong>Important:</strong> This calculator provides estimates for planning and education. It is not tax, accounting, legal, or financial advice. Verify current Washington Department of Revenue rates and rules before billing a customer or filing a return.
-  </footer>
+  <footer><div class="footerlinks"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></div><strong>Important:</strong> This calculator provides estimates for planning and education. It is not tax, accounting, legal, or financial advice. Verify current Washington Department of Revenue rates and rules before billing a customer or filing a return.</footer>
 </div>
-
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number.isFinite(n)?n:0);
+  const round2 = n => Math.round((n + Number.EPSILON) * 100) / 100;
+  const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(round2(Number.isFinite(n)?n:0));
   const pct = n => (Number.isFinite(n)?n:0).toFixed(1) + '%';
   const num = id => Math.max(0, parseFloat($(id).value) || 0);
-
-  $('role').addEventListener('change', () => {
-    $('permitWrap').classList.toggle('hidden', $('role').value !== 'sub');
-  });
-
+  $('role').addEventListener('change', () => {$('permitWrap').classList.toggle('hidden', $('role').value !== 'sub');});
   $('calc').addEventListener('click', () => {
-    const role = $('role').value;
-    const permit = $('permit').value;
-    const contract = num('contract');
-    const rawTaxRate = num('taxRate');
-    // WA DOR displays rates as decimals (e.g. 0.089 = 8.9%).
-    // Also accept a user-entered percentage such as 8.9 for convenience.
-    const taxRate = rawTaxRate > 1 ? rawTaxRate / 100 : rawTaxRate;
-    const costs = num('materials') + num('labor') + num('subs') + num('other');
-
-    if (contract <= 0) {
-      alert('Enter a contract amount greater than $0.');
-      return;
-    }
-
-    if (rawTaxRate > 20) {
-      alert('Enter the WA DOR total tax rate as shown (for example 0.089) or as a percent (8.9).');
-      return;
-    }
-
-    const wholesale = role === 'sub' && permit === 'yes';
-    const boRate = wholesale ? 0.00484 : 0.00471;
-    const taxable = !wholesale;
-    const salesTax = taxable ? contract * taxRate : 0;
-    const customerTotal = contract + salesTax;
-    const grossProfit = contract - costs;
-    const grossMargin = contract ? (grossProfit / contract) * 100 : 0;
-    const bo = contract * boRate;
-    const after = grossProfit - bo;
-    const afterMargin = contract ? (after / contract) * 100 : 0;
-
-    $('rContract').textContent = money(contract);
-    $('rRate').textContent = taxable ? (taxRate * 100).toFixed(3).replace(/0+$/,'').replace(/\.$/,'') + '%' : 'Not collected';
-    $('rTax').textContent = money(salesTax);
-    $('rCustomer').textContent = money(customerTotal);
-    $('rCosts').textContent = money(costs);
-    $('rGross').textContent = money(grossProfit);
-    $('rMargin').textContent = pct(grossMargin);
-    $('rBO').textContent = money(bo);
-    $('rAfter').textContent = money(after);
-    $('rAfterMargin').textContent = pct(afterMargin);
-
-    if (wholesale) {
-      $('classification').textContent = 'Wholesale estimate · B&O 0.484%';
-      $('resultNote').innerHTML = 'Subcontractor + valid reseller permit selected. This simplified estimate applies <strong>no retail sales tax</strong> to the subcontract charge and estimates wholesaling B&O.';
-    } else if (role === 'sub') {
-      $('classification').textContent = 'Retail estimate · B&O 0.471%';
-      $('resultNote').innerHTML = 'Subcontractor without a valid reseller permit selected. Washington DOR generally requires sales tax unless the buyer provides a valid reseller permit or other approved documentation. Verify the entered destination tax rate.';
-    } else {
-      $('classification').textContent = 'Retail construction estimate · B&O 0.471%';
-      $('resultNote').innerHTML = 'Prime/custom construction selected. This simplified estimate applies the entered destination sales-tax rate to the contract amount and estimates retailing B&O.';
-    }
-
-    $('empty').style.display = 'none';
-    $('results').style.display = 'block';
+    const role=$('role').value, permit=$('permit').value, contract=num('contract'), rawTaxRate=num('taxRate');
+    const taxRate = rawTaxRate >= 1 ? rawTaxRate / 100 : rawTaxRate;
+    const costs=num('materials')+num('labor')+num('subs')+num('other');
+    if(contract<=0){alert('Enter a contract amount greater than $0.');return;}
+    if(rawTaxRate>20){alert('Enter the WA DOR total tax rate as shown (for example 0.089) or as a percent (8.9).');return;}
+    const wholesale=role==='sub'&&permit==='yes', boRate=wholesale?0.00484:0.00471, taxable=!wholesale;
+    const salesTax=taxable?contract*taxRate:0, customerTotal=contract+salesTax, grossProfit=contract-costs, grossMargin=contract?(grossProfit/contract)*100:0, bo=contract*boRate, after=grossProfit-bo, afterMargin=contract?(after/contract)*100:0;
+    $('rContract').textContent=money(contract);$('rRate').textContent=taxable?pct(taxRate*100):'Not collected';$('rTax').textContent=money(salesTax);$('rCustomer').textContent=money(customerTotal);$('rCosts').textContent=money(costs);$('rGross').textContent=money(grossProfit);$('rMargin').textContent=pct(grossMargin);$('rBO').textContent=money(bo);$('rAfter').textContent=money(after);$('rAfterMargin').textContent=pct(afterMargin);
+    if(wholesale){$('classification').textContent='Wholesale estimate · B&O 0.484%';$('resultNote').innerHTML='Subcontractor + valid reseller permit selected. This simplified estimate applies <strong>no retail sales tax</strong> to the subcontract charge and estimates wholesaling B&O.';}else if(role==='sub'){$('classification').textContent='Retail estimate · B&O 0.471%';$('resultNote').innerHTML='Subcontractor without a valid reseller permit selected. Washington DOR generally requires sales tax unless the buyer provides a valid reseller permit or other approved documentation. Verify the entered destination tax rate.';}else{$('classification').textContent='Retail construction estimate · B&O 0.471%';$('resultNote').innerHTML='Prime/custom construction selected. This simplified estimate applies the entered destination sales-tax rate to the contract amount and estimates retailing B&O.';}
+    $('empty').style.display='none';$('results').style.display='block';
   });
 })();
 </script>
-
-<!--
-ADSENSE:
-Do not paste live ad code until the site has meaningful original content, privacy/cookie handling as applicable,
-and an approved AdSense publisher account. Keep ads separated from form controls and the Calculate button.
--->
-</body>
-</html>
+</body></html>
