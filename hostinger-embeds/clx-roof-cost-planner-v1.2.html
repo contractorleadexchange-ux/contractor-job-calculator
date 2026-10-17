@@ -1,0 +1,280 @@
+<!--
+CLX Roof Cost Planner — Hostinger Embed — v1.2 (2026-10-17)
+INSTALL: Copy this entire file into Hostinger's Add elements > Embed code > Enter code.
+This is a self-contained HTML fragment. It needs no API key or external scripts.
+Use Preview to test, keep a backup of v1.1, and publish only after approving the live-site change.
+Changes in v1.2: stronger out-of-range size warnings and a direct link to the roof replacement guide.
+The pricing inputs, proportional scaling, rounding, validation, condition questions, and lead CTA are unchanged.
+-->
+<section class="clx-roof-planner" id="clx-roof-cost-planner" aria-labelledby="clx-planner-title">
+<style>
+.clx-roof-planner{--clx-navy:#102c4f;--clx-blue:#185bac;--clx-ink:#182c47;--clx-muted:#566579;--clx-border:#d8e1eb;box-sizing:border-box;width:100%;max-width:1120px;margin:0 auto;padding:24px;color:var(--clx-ink);background:#f4f6f9;border-radius:14px;font:1rem/1.6 "Open Sans",Arial,Helvetica,sans-serif;color-scheme:light;overflow-wrap:anywhere}
+.clx-roof-planner *{box-sizing:border-box}
+.clx-roof-planner h2,.clx-roof-planner h3,.clx-roof-planner p{margin:0}
+.clx-roof-planner h2,.clx-roof-planner h3{font-family:Montserrat,"Open Sans",Arial,Helvetica,sans-serif}
+.clx-roof-planner button,.clx-roof-planner input{font:inherit}
+.clx-roof-planner input,.clx-roof-planner button,.clx-roof-planner a,.clx-roof-planner summary{-webkit-tap-highlight-color:transparent}
+.clx-roof-planner :focus-visible{outline:3px solid #327acf;outline-offset:4px}
+.clx-roof-planner [hidden]{display:none!important}
+.clx-roof-planner .clx-intro{margin-bottom:24px}
+.clx-roof-planner .clx-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.09em;color:var(--clx-blue)}
+.clx-roof-planner .clx-intro h2{font-size:2rem;line-height:1.2;letter-spacing:-.03em;font-weight:750;margin:7px 0 9px}
+.clx-roof-planner .clx-intro>p:last-child{color:var(--clx-muted)}
+.clx-roof-planner .clx-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+.clx-roof-planner .clx-panel{min-width:0;border:1px solid var(--clx-border);border-radius:11px;background:white;padding:24px}
+.clx-roof-planner .clx-heading h3{min-width:0}
+.clx-roof-planner .clx-heading{display:flex;gap:11px;align-items:center;margin-bottom:20px}
+.clx-roof-planner .clx-step{background:#eaf1fa;color:var(--clx-blue);border-radius:5px;padding:4px 7px;font-size:.75rem;font-weight:700}
+.clx-roof-planner h3{font-size:1.1rem;line-height:1.35;font-weight:700}
+.clx-roof-planner .clx-area-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.clx-roof-planner .clx-area-row label,.clx-roof-planner legend{font-size:.94rem;font-weight:650}
+.clx-roof-planner .clx-area-row label{min-width:0}
+.clx-roof-planner .clx-area-row span{flex:none;font-size:.875rem;color:var(--clx-muted)}
+.clx-roof-planner .clx-area-input{width:100%;min-width:0;min-height:54px;height:auto;padding:12px 15px;border:1px solid #bdccdd;border-radius:7px;background:#fafbfd;color:var(--clx-ink);font-size:1.3rem;font-weight:600}
+.clx-roof-planner .clx-area-input[aria-invalid="true"]{border-color:#ae2929}
+.clx-roof-planner .clx-help{font-size:.875rem;color:var(--clx-muted);line-height:1.55;margin-top:10px}
+.clx-roof-planner .clx-error{font-size:.875rem;color:#ae2929;margin-top:8px}
+.clx-roof-planner fieldset{margin:22px 0 0;padding:0;border:0;min-width:0}
+.clx-roof-planner legend{padding:0;margin-bottom:10px}
+.clx-roof-planner .clx-material-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.clx-roof-planner .clx-material{display:flex;align-items:flex-start;gap:9px;padding:15px 12px;border:1px solid var(--clx-border);border-radius:8px;cursor:pointer;min-width:0;min-height:76px}
+.clx-roof-planner .clx-material:has(input:checked){background:#edf4fe;border-color:var(--clx-blue);box-shadow:inset 0 0 0 1px var(--clx-blue)}
+.clx-roof-planner .clx-material:focus-within{outline:2px solid #327acf;outline-offset:2px}
+.clx-roof-planner .clx-material input{width:17px;height:17px;margin:3px 0 0;flex:none;accent-color:var(--clx-blue)}
+.clx-roof-planner .clx-material>span{min-width:0}
+.clx-roof-planner .clx-material strong{display:block;font-size:.875rem;line-height:1.4;overflow-wrap:anywhere}
+.clx-roof-planner .clx-material small{display:block;font-size:.75rem;color:var(--clx-muted);line-height:1.4;margin-top:5px;overflow-wrap:anywhere}
+.clx-roof-planner .clx-result{min-width:0;grid-column:2;grid-row:1 / span 2;background:var(--clx-navy);color:white;border-radius:11px;overflow:hidden}
+.clx-roof-planner .clx-result-main{padding:26px}
+.clx-roof-planner .clx-result .clx-eyebrow{color:#b3d1f5}
+.clx-roof-planner .clx-result h3{font-size:1.1rem;font-weight:500;color:#e0eaf6;margin-top:16px}
+.clx-roof-planner .clx-range{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px;margin:12px 0 5px;font-size:2.3rem;font-weight:750;line-height:1.25;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.clx-roof-planner .clx-range>span{max-width:100%;overflow-wrap:anywhere}
+.clx-roof-planner .clx-dash{color:#93b7df;font-weight:400;font-size:1.7rem}
+.clx-roof-planner .clx-invalid-range{font-size:1.5rem;letter-spacing:normal}
+.clx-roof-planner .clx-result-area{color:#bfd0e4;font-size:.875rem}
+.clx-roof-planner .clx-disclaimer{padding-top:20px;margin-top:20px;border-top:1px solid #385271}
+.clx-roof-planner .clx-disclaimer strong{display:block;font-size:.875rem}
+.clx-roof-planner .clx-result-copy{font-size:.875rem;color:#c7d6e8;line-height:1.6;margin-top:10px}
+.clx-roof-planner .clx-model-note{margin-top:16px;font-size:.8rem;color:#c7d6e8;line-height:1.6}
+.clx-roof-planner .clx-caution{margin-top:16px;background:#fff0c4;color:#593800;border:2px solid #b87800;border-left-width:6px;padding:14px 15px;border-radius:7px;font-size:.9rem;font-weight:500;line-height:1.6}
+.clx-roof-planner .clx-caution strong{display:block;color:#593800;font-weight:800;margin-bottom:5px}
+.clx-roof-planner .clx-related{margin-top:16px!important;border-top:1px solid #ccd8e5;padding-top:16px}
+.clx-roof-planner .clx-related a{color:#185bac;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.clx-roof-planner .clx-related a:hover{text-decoration-thickness:2px}
+.clx-roof-planner .clx-condition-notice{color:#dfebfa;border-left:2px solid #8bbaef;padding-left:10px;font-size:.875rem;margin-top:14px}
+.clx-roof-planner .clx-next{background:#183959;padding:23px 26px}
+.clx-roof-planner .clx-next h3{color:white;font-size:1rem;font-weight:700;margin:0}
+.clx-roof-planner .clx-next p{font-size:.875rem;color:#d2dfed;margin:8px 0 17px;line-height:1.55}
+.clx-roof-planner .clx-request-link{display:block;text-align:center;text-decoration:none;border-radius:7px;background:#2874c9;color:white;padding:13px 12px;font-size:.94rem;font-weight:700;line-height:1.5;min-height:48px}
+.clx-roof-planner .clx-request-link:hover{background:#195fae}
+.clx-roof-planner .clx-next small{display:block;text-align:center;font-size:.75rem;color:#c0d3e7;margin-top:11px;line-height:1.5;overflow-wrap:anywhere}
+.clx-roof-planner .clx-conditions{grid-column:1}
+.clx-roof-planner .clx-conditions .clx-heading{margin-bottom:8px}
+.clx-roof-planner .clx-conditions .clx-help{margin:0 0 13px}
+.clx-roof-planner .clx-condition-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.clx-roof-planner .clx-condition{display:flex;align-items:flex-start;gap:9px;cursor:pointer;padding:10px 0;line-height:1.45;font-size:.875rem;min-height:44px}
+.clx-roof-planner .clx-condition input{width:18px;height:18px;margin:1px 0 0;flex:none;accent-color:var(--clx-blue)}
+.clx-roof-planner .clx-questions{margin-top:14px;background:#f1f5fa;padding:16px;border-radius:7px}
+.clx-roof-planner .clx-questions h3{font-size:.875rem}
+.clx-roof-planner .clx-questions ul{margin:8px 0 0;padding-left:20px;font-size:.875rem;color:#465a70}
+.clx-roof-planner .clx-questions li+li{margin-top:7px}
+.clx-roof-planner .clx-explanation{margin-top:22px;padding:22px 24px;border:1px solid var(--clx-border);border-radius:11px;background:#edf1f6}
+.clx-roof-planner .clx-explanation h3{font-size:1rem;margin-bottom:9px}
+.clx-roof-planner .clx-explanation p{font-size:.875rem;color:#4f6176;line-height:1.7}
+.clx-roof-planner details{margin-top:16px;padding-top:14px;border-top:1px solid #ccd8e5}
+.clx-roof-planner summary{cursor:pointer;font-size:.875rem;font-weight:700;color:var(--clx-blue);padding:5px 0;min-height:34px}
+.clx-roof-planner .clx-method{padding-top:15px}
+.clx-roof-planner .clx-method p+p{margin-top:13px}
+.clx-roof-planner .clx-table-wrap{overflow-x:auto;margin:14px 0}
+.clx-roof-planner table{width:100%;border-collapse:collapse;font-size:.875rem;color:var(--clx-ink)}
+.clx-roof-planner th,.clx-roof-planner td{padding:10px 8px;text-align:left;border-bottom:1px solid #d3deea}
+.clx-roof-planner th{font-weight:700}
+.clx-roof-planner td:last-child{white-space:nowrap}
+.clx-roof-planner .clx-js-note{font-size:.875rem;color:#ae2929;margin-bottom:18px}
+@media(max-width:950px){.clx-roof-planner .clx-material-grid{grid-template-columns:1fr}.clx-roof-planner .clx-range{font-size:2rem}}
+@media(max-width:760px){.clx-roof-planner{padding:18px}.clx-roof-planner .clx-grid{grid-template-columns:minmax(0,1fr);gap:17px}.clx-roof-planner .clx-result{grid-column:1;grid-row:auto}.clx-roof-planner .clx-material-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr))}.clx-roof-planner .clx-panel{padding:21px}.clx-roof-planner .clx-result-main{padding:23px}.clx-roof-planner .clx-next{padding:22px 23px}.clx-roof-planner .clx-explanation{padding:21px}.clx-roof-planner .clx-range{font-size:2.2rem}}
+@media(max-width:480px){.clx-roof-planner{padding:14px}.clx-roof-planner .clx-intro h2{font-size:1.7rem}.clx-roof-planner .clx-panel{padding:18px}.clx-roof-planner .clx-result-main{padding:21px 18px}.clx-roof-planner .clx-next{padding:21px 18px}.clx-roof-planner .clx-condition-grid{grid-template-columns:1fr}.clx-roof-planner .clx-range{font-size:2rem}.clx-roof-planner .clx-explanation{padding:18px}.clx-roof-planner th,.clx-roof-planner td{padding-left:0;padding-right:8px}}
+</style>
+<div class="clx-intro">
+  <p class="clx-eyebrow">CONTRACTOR LEAD EXCHANGE · 2026</p>
+  <h2 id="clx-planner-title">Plan your roof replacement budget</h2>
+  <p>Explore a roof replacement budget before you talk with a contractor.</p>
+</div>
+<noscript><p class="clx-js-note">Enable JavaScript to use this calculator. You can still review the original planning ranges below.</p></noscript>
+<p class="clx-js-note" data-clx-loading>Loading the calculator… If this message remains, preview the page to check that scripts are enabled.</p>
+<div class="clx-grid">
+  <div class="clx-panel">
+    <div class="clx-heading"><span class="clx-step">01</span><h3>Your roof details</h3></div>
+    <div class="clx-area-row"><label for="clx-roof-area">Estimated roof surface area</label><span>sq ft</span></div>
+    <input id="clx-roof-area" class="clx-area-input" type="number" inputmode="numeric" min="500" max="10000" step="1" value="2000" aria-describedby="clx-area-help clx-area-error" aria-invalid="false">
+    <p class="clx-help" id="clx-area-help">Use the actual sloped roof area, including overhangs. Your home’s floor area is different. A roofing “square” is 100 sq ft.</p>
+    <p class="clx-error" id="clx-area-error" role="status" hidden></p>
+    <fieldset><legend>Roofing type</legend>
+      <div class="clx-material-grid">
+        <label class="clx-material"><input type="radio" name="clx-roofing-type" value="basic"><span><strong>Basic 3-tab asphalt</strong><small>Standard asphalt shingles</small></span></label>
+        <label class="clx-material"><input type="radio" name="clx-roofing-type" value="architectural" checked><span><strong>Architectural asphalt</strong><small>Dimensional asphalt shingles</small></span></label>
+        <label class="clx-material"><input type="radio" name="clx-roofing-type" value="premium"><span><strong>High-end architectural</strong><small>Premium architectural shingles</small></span></label>
+        <label class="clx-material"><input type="radio" name="clx-roofing-type" value="metal"><span><strong>Standing-seam metal</strong><small>Metal panels with raised seams</small></span></label>
+      </div>
+    </fieldset>
+  </div>
+  <aside class="clx-result" aria-labelledby="clx-result-title">
+    <div class="clx-result-main">
+      <p class="clx-eyebrow">YOUR 2026 PLANNING RANGE</p>
+      <h3 id="clx-result-title" data-clx-material>Architectural asphalt</h3>
+      <output class="clx-range" for="clx-roof-area" aria-live="polite" aria-atomic="true" aria-label="Planning range" data-clx-range><span>$14,000</span><span class="clx-dash">–</span><span>$20,000</span></output>
+      <p class="clx-result-area" data-clx-area>2,000 sq ft of roof surface</p>
+      <div class="clx-disclaimer">
+        <strong>Planning guidance. Not a contractor quote.</strong>
+        <p class="clx-result-copy">An illustrative roof replacement range based on CLX-provided Southwest Washington figures. A contractor must inspect and price your actual project.</p>
+      </div>
+      <p class="clx-result-copy" data-clx-metal hidden>The “+” means metal projects can exceed the upper figure. It is not a price cap.</p>
+      <p class="clx-model-note" data-clx-model>Uses the original CLX range at the assumed 2,000 sq ft reference size.</p>
+      <p class="clx-caution" data-clx-size-caution role="status" hidden><strong>High uncertainty — outside the 1,800–2,500 sq ft reference range.</strong>This number is a simple extrapolation from CLX planning inputs, not a dependable budget, measured estimate, or contractor quote. Some costs do not scale with roof area. Have a qualified contractor confirm roof dimensions, material scope, access, and the actual project price before making financial decisions.</p>
+      <p class="clx-condition-notice" data-clx-condition-notice hidden></p>
+    </div>
+    <div class="clx-next">
+      <h3>Get a clearer picture of your project.</h3>
+      <p>Tell CLX about your roof. We’ll review your request and look for a local contractor who fits your project.</p>
+      <a class="clx-request-link" href="https://contractorleadexchange.com/homeowners-find-qualified-contractors-in-southwest-washington#cta1" target="_top">Start my free project request</a>
+      <small>Free for homeowners · Continue on ContractorLeadExchange.com</small>
+    </div>
+  </aside>
+  <div class="clx-panel clx-conditions">
+    <div class="clx-heading"><span class="clx-step">02</span><h3>What should a contractor check?</h3></div>
+    <p class="clx-help">Select anything you’ve noticed. These flag items to discuss; they don’t add a dollar amount.</p>
+    <div class="clx-condition-grid">
+      <label class="clx-condition"><input type="checkbox" value="moisture" data-clx-condition><span>Moss or moisture damage</span></label>
+      <label class="clx-condition"><input type="checkbox" value="decking" data-clx-condition><span>Soft or damaged decking</span></label>
+      <label class="clx-condition"><input type="checkbox" value="flashing" data-clx-condition><span>Flashing or ventilation concerns</span></label>
+      <label class="clx-condition"><input type="checkbox" value="pitch" data-clx-condition><span>Steep roof or many roof angles</span></label>
+      <label class="clx-condition"><input type="checkbox" value="access" data-clx-condition><span>Difficult access or multiple stories</span></label>
+      <label class="clx-condition"><input type="checkbox" value="layers" data-clx-condition><span>Multiple existing roofing layers</span></label>
+    </div>
+    <div class="clx-questions" data-clx-questions hidden>
+      <h3>Bring these questions to your roof inspection</h3>
+      <ul data-clx-question-list></ul>
+    </div>
+  </div>
+</div>
+<div class="clx-explanation">
+  <h3>A starting range, with room for the unknowns.</h3>
+  <p>Actual pricing can change with decking, flashing, ventilation, roof slope and complexity, site access, moss or moisture damage, removal and disposal, permits, taxes, and other job conditions. These figures are not a guaranteed all-in price and include no separately calculated allowance for those items.</p>
+<p class="clx-related"><strong>Understand what affects your estimate:</strong> Read the <a href="https://contractorleadexchange.com/roof-replacement-southwest-washington" target="_top" rel="noopener">Southwest Washington roof replacement homeowner guide</a> for questions to ask, what a replacement should include, and how to compare written bids.</p>
+  <details><summary>How the calculator works</summary>
+    <div class="clx-method">
+      <p><strong>Source:</strong> CLX-provided 2026 planning ranges for Southwest Washington, in the context of typical roofs of approximately 1,800–2,500 sq ft. These are CLX inputs, not independently verified market averages.</p>
+      <div class="clx-table-wrap"><table>
+        <thead><tr><th scope="col">Roofing type</th><th scope="col">Original CLX range</th></tr></thead>
+        <tbody>
+          <tr><td>Basic 3-tab asphalt</td><td>$9,000–$13,000</td></tr>
+          <tr><td>Architectural asphalt</td><td>$14,000–$20,000</td></tr>
+          <tr><td>High-end architectural</td><td>$18,000–$28,000</td></tr>
+          <tr><td>Standing-seam metal</td><td>$25,000–$45,000+</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>Size assumption:</strong> The calculator anchors those ranges to a 2,000 sq ft reference roof, a modeling choice within the typical size band. The supplied figures do not establish a measured cost-per-square-foot rate. Other sizes scale proportionally: original range × (roof area ÷ 2,000). The low end rounds down and the high end rounds up to the nearest $500. Fixed costs and job conditions do not scale evenly.</p>
+      <p><strong>Scope:</strong> This is for roof replacement planning, not repairs, a material-only price, or a remote roof measurement. Condition selections generate inspection questions and leave the numeric range unchanged. Compare written contractor estimates for a confirmed scope and price.</p>
+    </div>
+  </details>
+</div>
+<script>
+(function () {
+  "use strict";
+  var script = document.currentScript;
+  var root = script && script.closest(".clx-roof-planner") || document.getElementById("clx-roof-cost-planner");
+  if (!root || root.dataset.clxReady === "true") return;
+  var materials = {
+    basic: { label: "Basic 3-tab asphalt", low: 9000, high: 13000, openEnded: false },
+    architectural: { label: "Architectural asphalt", low: 14000, high: 20000, openEnded: false },
+    premium: { label: "High-end architectural", low: 18000, high: 28000, openEnded: false },
+    metal: { label: "Standing-seam metal", low: 25000, high: 45000, openEnded: true }
+  };
+  var questions = {
+    moisture: "Is there moisture damage beneath the roofing, and what needs repair?",
+    decking: "How will damaged roof decking be documented and priced?",
+    flashing: "What flashing and ventilation work is included in the estimate?",
+    pitch: "How do the roof slope, valleys, and roof angles affect labor and materials?",
+    access: "What access, staging, and safety arrangements will this roof require?",
+    layers: "How many layers will be removed, and what disposal work is included?"
+  };
+  var areaInput = root.querySelector("#clx-roof-area");
+  var rangeOutput = root.querySelector("[data-clx-range]");
+  var error = root.querySelector("#clx-area-error");
+  var formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  function money(value) { return formatter.format(value); }
+  function planningRange(area, material) {
+    if (!Number.isInteger(area) || area < 500 || area > 10000) throw new Error("Enter a whole-number roof area from 500 to 10,000 sq ft.");
+    if (!Object.prototype.hasOwnProperty.call(materials, material)) throw new Error("Choose a supported roofing type.");
+    var item = materials[material];
+    return {
+      low: Math.floor((item.low * area / 2000) / 500) * 500,
+      high: Math.ceil((item.high * area / 2000) / 500) * 500,
+      openEnded: item.openEnded
+    };
+  }
+  function updateConditions() {
+    var selected = Array.from(root.querySelectorAll("[data-clx-condition]:checked"));
+    var notice = root.querySelector("[data-clx-condition-notice]");
+    notice.hidden = selected.length === 0;
+    notice.textContent = selected.length + (selected.length === 1 ? " condition needs" : " conditions need") + " contractor review. Your range has no added allowance for these items.";
+    root.querySelector("[data-clx-questions]").hidden = selected.length === 0;
+    var list = root.querySelector("[data-clx-question-list]");
+    list.replaceChildren();
+    selected.forEach(function (input) {
+      var item = document.createElement("li");
+      item.textContent = questions[input.value] || "Ask the contractor to assess this condition.";
+      list.appendChild(item);
+    });
+  }
+  function render() {
+    var checked = root.querySelector('input[name="clx-roofing-type"]:checked');
+    var material = checked ? checked.value : "";
+    var item = Object.prototype.hasOwnProperty.call(materials, material) ? materials[material] : null;
+    var area = Number(areaInput.value);
+    var valid = areaInput.value.trim() !== "" && Number.isInteger(area) && area >= 500 && area <= 10000 && item;
+    root.querySelector("[data-clx-material]").textContent = item ? item.label : "Choose a roofing type";
+    areaInput.setAttribute("aria-invalid", valid ? "false" : "true");
+    error.hidden = !!valid;
+    error.textContent = valid ? "" : "Enter a whole-number roof area from 500 to 10,000 sq ft.";
+    rangeOutput.replaceChildren();
+    if (valid) {
+      var range = planningRange(area, material);
+      [money(range.low), "–", money(range.high) + (range.openEnded ? "+" : "")].forEach(function (text, index) {
+        var span = document.createElement("span");
+        span.textContent = text;
+        if (index === 1) span.className = "clx-dash";
+        rangeOutput.appendChild(span);
+      });
+      root.querySelector("[data-clx-area]").textContent = area.toLocaleString("en-US") + " sq ft of roof surface";
+      root.querySelector("[data-clx-model]").hidden = false;
+      root.querySelector("[data-clx-model]").textContent = area === 2000 ?
+        "Uses the original CLX range at the assumed 2,000 sq ft reference size." :
+        (area < 1800 || area > 2500 ?
+            "Outside the CLX reference-size band: illustrative mathematical scaling only. Do not rely on this range as a quote or dependable project budget." :
+            "Size-adjusted illustration: CLX range × (your roof area ÷ 2,000), rounded outward to $500.");
+      root.querySelector("[data-clx-metal]").hidden = !range.openEnded;
+      root.querySelector("[data-clx-size-caution]").hidden = area >= 1800 && area <= 2500;
+    } else {
+      var message = document.createElement("span");
+      message.className = "clx-invalid-range";
+      message.textContent = "Enter a valid roof size";
+      rangeOutput.appendChild(message);
+      root.querySelector("[data-clx-area]").textContent = "A planning range will appear here.";
+      root.querySelector("[data-clx-model]").hidden = true;
+      root.querySelector("[data-clx-metal]").hidden = true;
+      root.querySelector("[data-clx-size-caution]").hidden = true;
+    }
+    updateConditions();
+  }
+  areaInput.addEventListener("input", render);
+  root.querySelectorAll('input[name="clx-roofing-type"],[data-clx-condition]').forEach(function (input) {
+    input.addEventListener("change", render);
+  });
+  root.dataset.clxReady = "true";
+  root.querySelector("[data-clx-loading]").hidden = true;
+  render();
+}());
+</script>
+</section>
